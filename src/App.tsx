@@ -18,21 +18,23 @@ function App() {
   }
 
   function addTodosHandler(newTodo: string) {
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
-    persisteDate(todos);
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+
+    persisteDate(updatedTodos);
   }
 
   function deleteTodoHandler(index: number) {
-    setTodos(
-      todos.filter((_, todoIndex: number) => todoIndex !== index)
+    const updatedTodos = todos.filter(
+      (_, todoIndex: number) => todoIndex !== index
     );
+    setTodos(updatedTodos);
 
-    persisteDate(todos);
+    persisteDate(updatedTodos);
   }
 
   function updateTodoHandler(index: number) {
     setTodoValue(todos[index]);
-    deleteTodoHandler(index);
   }
 
   return (
