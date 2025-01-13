@@ -24,7 +24,7 @@ function App() {
 
   function deleteTodoHandler(index: number) {
     setTodos(
-      todos.filter((todo: String, todoIndex: number) => todoIndex !== index)
+      todos.filter((_, todoIndex: number) => todoIndex !== index)
     );
 
     persisteDate(todos);
