@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
 type TodoCardProps = {
   index: number;
-  onDeleteTodo: (index: number) => void;
   onUpdateTodo: (index: number) => void;
-  children: ReactNode;
+  onDeleteTodo: (index: number) => void;
+  children: React.ReactNode;
 };
+
 export default function TodoCard({
   index,
   onUpdateTodo,
@@ -12,15 +12,19 @@ export default function TodoCard({
   children,
 }: TodoCardProps) {
   return (
-    <li className="todoItem">
+    <li className={false ? "selectedTodo todoItem" : "todoItem"}>
       {children}
       <div className="actionContainer">
-        <button onClick={() => onUpdateTodo(index)}>
-          <i className="fa-solid fa-pen-to-square"></i>
-        </button>
-        <button onClick={() => onDeleteTodo(index)}>
-          <i className="fa-solid fa-trash"></i>
-        </button>
+        <i
+          className="fa-solid fa-pen-to-square"
+          onClick={() => {
+            onUpdateTodo(index);
+          }}
+        ></i>
+        <i
+          className="fa-solid fa-trash"
+          onClick={() => onDeleteTodo(index)}
+        ></i>
       </div>
     </li>
   );

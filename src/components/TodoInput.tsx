@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
+import { TodoType } from "../App";
 
 type TodoInputProps = {
-  todoValue: string;
-  setTodoValue: Dispatch<SetStateAction<string>>;
-  onAddTodos: (newTodo: string) => void;
+  todoValue: TodoType | null;
+  setTodoValue: Dispatch<SetStateAction<TodoType | null>>;
+  onAddTodos: (newTodo: TodoType) => void;
 };
 
 export default function TodoInput({
@@ -12,23 +13,27 @@ export default function TodoInput({
   onAddTodos,
 }: TodoInputProps) {
   function changeValueHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setTodoValue(event.target.value);
+    setTodoValue((prev) => ({
+      id: prev?.id ?? -1, // Default to -1 for new todos
+      todo: event.target.value,
+    }));
   }
 
   return (
     <header>
       <input
-        value={todoValue}
+        value={todoValue?.todo || ""}
         onChange={changeValueHandler}
         placeholder="Enter todo..."
       />
       <button
         onClick={() => {
-          onAddTodos(todoValue);
-          setTodoValue("");
+          if (todoValue?.todo.trim()) {
+            onAddTodos(todoValue);
+          }
         }}
       >
-        Add
+        {todoValue?.id === -1 ? "Add" : "Update"}
       </button>
     </header>
   );

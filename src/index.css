@@ -102,7 +102,9 @@ p {
   opacity: 0.7;
 }
 
-
+.selectedTodo{
+  background-color: #a8a3a3;
+}
 
 @media (min-width: 640px) {
 
